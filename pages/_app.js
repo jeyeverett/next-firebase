@@ -1,9 +1,16 @@
 import "../styles/globals.css";
+import { Toaster } from "react-hot-toast";
 
-import { GetServerSideProps } from "next";
+import Navbar from "../components/Navbar";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Navbar />
+      <Component {...pageProps} />
+      <Toaster />
+    </>
+  );
 }
 
 export default MyApp;
