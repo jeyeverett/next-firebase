@@ -1,49 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* Spinner */
 .loader {
-  border: 10px solid white;
-  border-top: 10px solid blue;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.loader div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid darkgrey;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
+  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: darkgrey transparent transparent transparent;
 }
 
-@keyframes spin {
+.loader-mini {
+  display: inline-block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+.loader-mini div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  margin: 2px;
+  border: 4px solid darkgrey;
+  border-radius: 50%;
+  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: darkgrey transparent transparent transparent;
+}
+
+.loader div:nth-child(1),
+.loader-mini div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.loader div:nth-child(2),
+.loader-mini div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.loader div:nth-child(3),
+.loader-mini div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes loader {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@variants hover {
-  .button-animation::after {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-  }
-
-  .button-animation:hover::after {
-    content: "";
-    height: 2.5rem;
-    width: 2.5rem;
-    border-radius: 50%;
-    display: inline-block;
-    animation: cart-icon-hover 0.2s forwards;
-  }
-}
-
-@keyframes cart-icon-hover {
-  100% {
-    background-color: rgba(55, 65, 81, 0.1);
-    box-shadow: inset 0 0 8px rgba(55, 65, 81, 0.25);
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
   }
 }
