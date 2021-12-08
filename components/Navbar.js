@@ -41,16 +41,25 @@ export default function Navbar() {
             </li>
           )}
 
-          {username && (
+          {user && username && (
             <Link href={`/${username}`} passHref>
               <a className="h-9 absolute right-5 top-3.5 rounded-full shadow">
-                <Image
-                  src={user?.photoURL}
-                  width="36"
-                  height="36"
-                  alt={username}
-                  className="rounded-full"
-                />
+                {user.photoURL ? (
+                  <Image
+                    src={user.photoURL}
+                    width="36"
+                    height="36"
+                    alt={username}
+                    className="rounded-full"
+                  />
+                ) : (
+                  <Button
+                    classes="relative flex items-center hover:button-animation z-10"
+                    title="Add post"
+                  >
+                    <AccountIcon classes="h-8 w-8 text-gray-500" />
+                  </Button>
+                )}
               </a>
             </Link>
           )}
