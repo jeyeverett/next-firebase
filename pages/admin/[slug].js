@@ -62,7 +62,13 @@ function PostManager() {
 }
 
 function PostForm({ defaultValues, postRef, preview }) {
-  const { register, handleSubmit, reset, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors, isValid, isDirty },
+  } = useForm({
     defaultValues,
     mode: "onChange",
   });
@@ -90,7 +96,16 @@ function PostForm({ defaultValues, postRef, preview }) {
       )}
 
       <div className={preview ? "hidden" : ""}>
-        <textarea {...register("content")}></textarea>
+        <textarea
+          {...register("content", {
+            maxLength: { value: 20000, message: "content is too long" },
+            minLength: { value: 10, message: "content is too short" },
+            required: { value: true, message: "content is required" },
+          })}
+        />
+
+        {errors.content && <p className="">{errors.content.message}</p>}
+
         <fieldset>
           <input
             className=""
@@ -104,6 +119,7 @@ function PostForm({ defaultValues, postRef, preview }) {
 
       <button
         type="submit"
+        disabled={!isDirty || !isValid}
         className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium"
       >
         Save Changes
