@@ -4,16 +4,16 @@ import UsernameForm from "../components/UsernameForm";
 import SignInButton from "../components/SignInButton";
 import SignOutButton from "../components/SignOutButton";
 
-export default function EnterPage({}) {
+export default function EnterPage() {
   const { user, username } = useContext(UserContext);
 
   return (
     <main className="">
       {user ? (
-        !username ? (
-          <UsernameForm />
-        ) : (
+        username ? (
           <SignOutButton />
+        ) : (
+          <UsernameForm />
         )
       ) : (
         <SignInButton />

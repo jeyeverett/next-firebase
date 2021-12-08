@@ -7,7 +7,7 @@ import debounce from "lodash.debounce";
 import toast from "react-hot-toast";
 
 export default function UsernameForm() {
-  const { user, username } = useContext(UserContext);
+  const { user, username, loading: userLoading } = useContext(UserContext);
   const [formValue, setFormValue] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -80,7 +80,8 @@ export default function UsernameForm() {
   }, []);
 
   return (
-    !username && (
+    !username &&
+    !userLoading && (
       <section>
         <h3>Choose Username</h3>
         <form onSubmit={onSubmit}>

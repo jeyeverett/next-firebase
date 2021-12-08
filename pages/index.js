@@ -2,6 +2,7 @@ import Loader from "../components/Loader";
 import PostFeed from "../components/PostFeed";
 import { useState } from "react";
 import { firestore, postToJSON, fromMillis } from "../lib/firebase";
+import Link from "next/link";
 
 export default function Home(props) {
   const [posts, setPosts] = useState(props.posts);
@@ -39,7 +40,7 @@ export default function Home(props) {
       <h1 className="text-center text-3xl font-medium text-gray-700 mb-8">
         Posts
       </h1>
-
+      <Link href="/admin">Admin</Link>
       <PostFeed posts={posts} />
 
       {!loading && !postsEnd && (
