@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import AuthCheck from "../../components/AuthCheck";
+import ImageUploader from "../../components/ImageUploader";
+
 import { firestore, auth, serverTimestamp } from "../../lib/firebase";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import AuthCheck from "../../components/AuthCheck";
 
 export default function AdminPostEdit({}) {
   return (
@@ -96,6 +98,8 @@ function PostForm({ defaultValues, postRef, preview }) {
       )}
 
       <div className={preview ? "hidden" : ""}>
+        <ImageUploader />
+
         <textarea
           {...register("content", {
             maxLength: { value: 20000, message: "content is too long" },
