@@ -1,6 +1,7 @@
 import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import PostContent from "../../components/PostContent";
+import MetaTags from "../../components/MetaTags";
 import HeartIcon from "../../components/icons/heart-icon";
 
 export default function Post({ path, post: postData }) {
@@ -15,6 +16,7 @@ export default function Post({ path, post: postData }) {
   return (
     <main>
       <section>
+        <MetaTags post={post} />
         <PostContent post={post} />
       </section>
 

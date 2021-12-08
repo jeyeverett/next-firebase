@@ -1,6 +1,8 @@
 import Head from "next/head";
 
-export default function MetaTags({ title, description, image, summary, site }) {
+export default function MetaTags({ post }) {
+  const { title, description, image, summary, site } = post;
+  console.log(post);
   return (
     <Head>
       <title>{title}</title>
