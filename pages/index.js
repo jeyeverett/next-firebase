@@ -11,8 +11,7 @@ export default function Home(props) {
   const getMorePosts = async () => {
     setLoading(true);
     const last = posts[posts.length - 1];
-    // we need the timestamp for pagination (see next step)
-    // we need to convert the timestamp back to a firestore timestamp for use in the query
+    // we need the timestamp for pagination and it needs to be in firestore format (not number)
     const cursor =
       typeof last.createdAt === "number"
         ? fromMillis(last.createdAt)
@@ -40,6 +39,7 @@ export default function Home(props) {
       <h1 className="text-center text-3xl font-medium text-gray-700 mb-8">
         Posts
       </h1>
+
       <PostFeed posts={posts} />
 
       {!loading && !postsEnd && (
