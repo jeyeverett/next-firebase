@@ -1,6 +1,6 @@
 export default function UserProfile({ user }) {
   return (
-    <main>
+    <main className="px-6 py-6 sm:px-12 sm:py-12 flex flex-col items-center">
       <div className="">
         <img src={user.photoURL} alt="" />
         <p>
