@@ -3,6 +3,9 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import PostContent from "../../components/PostContent";
 import MetaTags from "../../components/MetaTags";
 import HeartIcon from "../../components/icons/heart-icon";
+import HeartButton from "../../components/HeartButton";
+import AuthCheck from "../../components/AuthCheck";
+import Link from "next/link";
 
 export default function Post({ path, post: postData }) {
   //this firebase hook lets us set up a real time datafeed to firestore
@@ -27,6 +30,21 @@ export default function Post({ path, post: postData }) {
             <HeartIcon classes="text-red-400 h-6 w-6 mr-2" />
           </strong>
         </p>
+
+        <AuthCheck
+          fallback={
+            <Link href="/enter" passHref>
+              <a>
+                <button className="px-4 py-2 border border-gray-500 bg-gray-500 shadow rounded hover:bg-white text-white hover:text-gray-700 transition-all mt-4">
+                  <HeartIcon classes="text-red-400 h-6 w-6 mr-2" />
+                  Sign Up
+                </button>
+              </a>
+            </Link>
+          }
+        >
+          <HeartButton postRef={postRef} />
+        </AuthCheck>
       </aside>
     </main>
   );
