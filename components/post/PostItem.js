@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HeartIcon from "../components/icons/heart-icon";
+import HeartIcon from "@/icons/heart-icon";
 
 export default function PostItem({ post, admin = false }) {
   // word count and read time

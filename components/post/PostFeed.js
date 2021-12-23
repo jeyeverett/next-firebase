@@ -1,4 +1,4 @@
-import PostItem from "../components/PostItem";
+import PostItem from "@/post/PostItem";
 
 export default function PostFeed({ posts, admin }) {
   return (

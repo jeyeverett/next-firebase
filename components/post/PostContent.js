@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import style from "styles/markdown.module.css";
 
 export default function PostContent({ post }) {
   const createdAt =
@@ -18,7 +19,7 @@ export default function PostContent({ post }) {
         &nbsp; on {createdAt.toISOString()}
       </span>
 
-      <ReactMarkdown>{post?.content}</ReactMarkdown>
+      <ReactMarkdown className={style.markdown}>{post?.content}</ReactMarkdown>
     </div>
   );
 }

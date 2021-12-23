@@ -1,10 +1,10 @@
-import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
+import { firestore, getUserWithUsername, postToJSON } from "lib/firebase";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import PostContent from "../../components/PostContent";
-import MetaTags from "../../components/MetaTags";
-import HeartIcon from "../../components/icons/heart-icon";
-import HeartButton from "../../components/HeartButton";
-import AuthCheck from "../../components/AuthCheck";
+import PostContent from "@/post/PostContent";
+import MetaTags from "@/post/MetaTags";
+import HeartIcon from "@/icons/heart-icon";
+import HeartButton from "@/post/HeartButton";
+import AuthCheck from "@/auth/AuthCheck";
 import Link from "next/link";
 
 export default function Post({ path, post: postData }) {

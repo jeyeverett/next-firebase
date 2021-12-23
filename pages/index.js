@@ -1,7 +1,7 @@
-import Loader from "../components/Loader";
-import PostFeed from "../components/PostFeed";
+import Loader from "@/util/Loader";
+import PostFeed from "@/post/PostFeed";
 import { useState } from "react";
-import { firestore, postToJSON, fromMillis } from "../lib/firebase";
+import { firestore, postToJSON, fromMillis } from "lib/firebase";
 import Link from "next/link";
 
 export default function Home(props) {

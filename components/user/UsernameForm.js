@@ -1,13 +1,13 @@
-import { firestore } from "../lib/firebase";
+import { firestore } from "lib/firebase";
 import { useContext, useState, useEffect, useCallback } from "react";
-import { UserContext } from "../lib/context";
-import Loader from "../components/Loader";
+import { UserContext } from "lib/context";
+import Loader from "@/util/Loader";
 
 import debounce from "lodash.debounce";
 import toast from "react-hot-toast";
 
 export default function UsernameForm() {
-  const { user, username, loading: userLoading } = useContext(UserContext);
+  const { user, username } = useContext(UserContext);
   const [formValue, setFormValue] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -17,13 +17,14 @@ export default function UsernameForm() {
     usernameMessage({ formValue, isValid });
   }, [formValue, isValid, checkUsername, usernameMessage]);
 
+  // batch write to firestore
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
       const userDoc = firestore.doc(`users/${user.uid}`);
       const usernameDoc = firestore.doc(`usernames/${formValue}`);
-
       const batch = firestore.batch();
+
       batch.set(userDoc, {
         username: formValue,
         photoURL: user.photoURL,
@@ -39,7 +40,7 @@ export default function UsernameForm() {
 
   const onChange = (event) => {
     const { value } = event.target;
-    const re = /^(?=[a-zA-Z0-9._]{3,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+    const regEx = /^(?=[a-zA-Z0-9._]{3,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
 
     if (value.length < 3) {
       setFormValue(value.toLowerCase());
@@ -47,13 +48,11 @@ export default function UsernameForm() {
       setIsValid(false);
     }
 
-    if (re.test(value.toLowerCase())) {
+    if (regEx.test(value.toLowerCase())) {
       setFormValue(value.toLowerCase());
       setLoading(true);
       setIsValid(true);
     }
-
-    console.log(value);
   };
 
   // hit the database for username match after each debounced change
@@ -80,8 +79,7 @@ export default function UsernameForm() {
   }, []);
 
   return (
-    !username &&
-    !userLoading && (
+    !username && (
       <section>
         <h3>Choose Username</h3>
         <form onSubmit={onSubmit}>
@@ -100,14 +98,14 @@ export default function UsernameForm() {
             Choose
           </button>
 
-          <h3 className="mt-4">--DEBUG--</h3>
+          {/* <h3 className="mt-4">--DEBUG--</h3>
           <div>
             Username: {formValue}
             <br />
             Loading: {loading.toString()}
             <br />
             Username Valid: {isValid.toString()}
-          </div>
+          </div> */}
         </form>
       </section>
     )

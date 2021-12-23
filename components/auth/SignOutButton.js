@@ -1,6 +1,6 @@
-import { auth } from "../lib/firebase";
+import { auth } from "lib/firebase";
 import { useContext, useEffect } from "react";
-import { UserContext } from "../lib/context";
+import { UserContext } from "lib/context";
 
 export default function SignOutButton() {
   // when SignOutButton mounts our auth process is complete, so we set loading to false

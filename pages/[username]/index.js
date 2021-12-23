@@ -1,6 +1,6 @@
-import UserProfile from "../../components/UserProfile";
-import PostFeed from "../../components/PostFeed";
-import { getUserWithUsername, postToJSON } from "../../lib/firebase";
+import { getUserWithUsername, postToJSON } from "lib/firebase";
+import UserProfile from "@/user/UserProfile";
+import PostFeed from "@/post/PostFeed";
 
 export default function UserIndexPage({ user, posts }) {
   return (

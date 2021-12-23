@@ -1,8 +1,8 @@
-import { auth, googleAuthProvider } from "../lib/firebase";
+import { auth, googleAuthProvider } from "lib/firebase";
 import { useContext } from "react";
-import { UserContext } from "../lib/context";
+import { UserContext } from "lib/context";
 import Image from "next/image";
-import Loader from "./Loader";
+import Loader from "@/util/Loader";
 
 // sign in with Google
 export default function SignInButton() {

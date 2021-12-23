@@ -1,22 +1,20 @@
 import { useContext } from "react";
-import { UserContext } from "../lib/context";
-import UsernameForm from "../components/UsernameForm";
-import SignInButton from "../components/SignInButton";
-import SignOutButton from "../components/SignOutButton";
+import { UserContext } from "lib/context";
+import UsernameForm from "@/user/UsernameForm";
+import SignInButton from "@/auth/SignInButton";
+import SignOutButton from "@/auth/SignOutButton";
 
 export default function EnterPage() {
   const { user, username } = useContext(UserContext);
 
   return (
     <main className="">
-      {user ? (
-        username ? (
-          <SignOutButton />
-        ) : (
-          <UsernameForm />
-        )
-      ) : (
+      {!user ? (
         <SignInButton />
+      ) : username ? (
+        <SignOutButton />
+      ) : (
+        <UsernameForm />
       )}
     </main>
   );

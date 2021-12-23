@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useContext } from "react";
-import { UserContext } from "../lib/context";
-import AccountIcon from "./icons/account-icon";
-import HomeIcon from "./icons/home-icon";
-import AddIcon from "./icons/add-icon";
-import Button from "../components/Button";
+import { UserContext } from "lib/context";
+import AccountIcon from "@/icons/account-icon";
+import HomeIcon from "@/icons/home-icon";
+import AddIcon from "@/icons/add-icon";
+import Button from "@/util/Button";
 
 export default function Navbar() {
   const { user, username } = useContext(UserContext);
