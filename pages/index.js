@@ -36,11 +36,10 @@ export default function Home(props) {
   };
 
   return (
-    <main className="px-6 py-6 sm:px-12 sm:py-12 flex flex-col items-center">
+    <main className="md:px-6 md:py-6 sm:px-12 sm:py-12 flex flex-col items-center">
       <h1 className="text-center text-3xl font-medium text-gray-700 mb-8">
-        Posts
+        Main Feed
       </h1>
-      <Link href="/admin">Admin</Link>
       <PostFeed posts={posts} />
 
       {!loading && !postsEnd && (

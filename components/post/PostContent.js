@@ -10,7 +10,9 @@ export default function PostContent({ post }) {
 
   return (
     <div>
-      <h1>{post?.title}</h1>
+      <h1 className="text-center text-3xl font-medium text-gray-700 mb-8">
+        {post?.title}
+      </h1>
       <span className="text-sm">
         Written by &nbsp;
         <Link href={`/${post.username}`}>

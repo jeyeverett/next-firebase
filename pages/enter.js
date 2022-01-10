@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { UserContext } from "lib/context";
-import UsernameForm from "@/user/UsernameForm";
-import SignInButton from "@/auth/SignInButton";
-import SignOutButton from "@/auth/SignOutButton";
+import dynamic from "next/dynamic";
+const UsernameForm = dynamic(() => import("@/user/UsernameForm"));
+const SignInButton = dynamic(() => import("@/auth/SignInButton"));
+const SignOutButton = dynamic(() => import("@/auth/SignOutButton"));
 
 export default function EnterPage() {
   const { user, username } = useContext(UserContext);

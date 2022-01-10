@@ -17,11 +17,20 @@
     width: 2.5rem;
     border-radius: 50%;
     display: inline-block;
-    animation: cart-icon-hover 0.2s forwards;
+    animation: hover-bg 0.2s forwards;
   }
 }
 
-@keyframes cart-icon-hover {
+@variants checked {
+  input:checked + div {
+    @apply border-gray-700;
+  }
+  input:checked + div svg {
+    @apply opacity-100;
+  }
+}
+
+@keyframes hover-bg {
   100% {
     background-color: rgba(55, 65, 81, 0.1);
     box-shadow: inset 0 0 8px rgba(55, 65, 81, 0.25);

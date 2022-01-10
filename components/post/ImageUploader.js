@@ -1,11 +1,21 @@
 import { useState } from "react";
 import { auth, storage, STATE_CHANGED } from "lib/firebase";
+import { CopyIcon } from "@/icons";
+import Button from "@/util/Button";
+import toast from "react-hot-toast";
+
 import Loader from "@/util/Loader";
 
 export default function ImageUploader() {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState(null);
+
+  const copyText = (event) => {
+    event.preventDefault();
+    navigator.clipboard.writeText(`![alt](${downloadURL})`);
+    toast.success("Markdown URL copied");
+  };
 
   const uploadFile = async (event) => {
     // Get the file
@@ -25,42 +35,74 @@ export default function ImageUploader() {
 
     // Monitor upload progress
     task.on(STATE_CHANGED, (snapshot) => {
+      console.log(snapshot);
       const percent = (
         (snapshot.bytesTransferred / snapshot.totalBytes) *
         100
       ).toFixed(0);
       setProgress(percent);
 
+      if (snapshot.bytesTransferred === snapshot.totalBytes) return;
+
       // Get downloadURL AFTER task resolves (not a native Promise - can't use async await)
-      task
-        .then((d) => ref.getDownloadURL())
-        .then((url) => {
-          setDownloadURL(url);
-          setUploading(false);
-        });
+      return toast.promise(
+        task
+          .then((d) => ref.getDownloadURL())
+          .then((url) => {
+            setDownloadURL(url);
+            setUploading(false);
+          }),
+        {
+          loading: "Uploading...",
+          success: <b>Image uploaded!</b>,
+          error: <b>Image upload failed.</b>,
+        }
+      );
     });
   };
 
   return (
-    <div>
-      <Loader show={uploading} />
-      {uploading && <h3>{progress}%</h3>}
+    <div className="flex items-center">
+      {/* <div className="flex flex-col items-center justify-center">
+        <Loader show={uploading} mini={true} />
+        {uploading && (
+          <h3 className="text-gray-700 font-medium">{progress}%</h3>
+        )}
+      </div> */}
 
-      {!uploading && (
+      {!uploading ? (
         <>
           {/* Wrapping input in the label element makes it easier to style */}
-          <label>
+          <label className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium cursor-pointer mr-4">
             Upload Image
             <input
               type="file"
               onChange={uploadFile}
               accept="image/png,image/x-png,image/gif,image/jpeg"
+              className="hidden"
             />
           </label>
         </>
+      ) : (
+        <div className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium cursor-pointer mr-4 relative">
+          <Loader show={uploading} mini={true} classes="absolute" />
+          <h3 className="absolute text-gray-700 font-medium left-16">
+            {progress}%
+          </h3>
+          <span className="opacity-0">Upload Image</span>
+        </div>
       )}
 
-      {downloadURL && <code className="">{`![alt](${downloadURL})`}</code>}
+      {downloadURL && (
+        <Button
+          classes="relative flex items-center hover:button-animation z-10"
+          title="Copy image URL"
+          type="button"
+          onClick={copyText}
+        >
+          <CopyIcon classes="text-gray-700 h-6 w-6" />
+        </Button>
+      )}
     </div>
   );
 }

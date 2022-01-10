@@ -2,7 +2,7 @@ import { firestore, getUserWithUsername, postToJSON } from "lib/firebase";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import PostContent from "@/post/PostContent";
 import MetaTags from "@/post/MetaTags";
-import HeartIcon from "@/icons/heart-icon";
+import { HeartIcon } from "@/icons";
 import HeartButton from "@/post/HeartButton";
 import AuthCheck from "@/auth/AuthCheck";
 import Link from "next/link";
