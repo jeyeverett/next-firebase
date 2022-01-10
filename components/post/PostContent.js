@@ -1,8 +1,13 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import style from "styles/markdown.module.css";
+import { useContext } from "react";
+import { UserContext } from "lib/context";
 
 export default function PostContent({ post }) {
+  const { loading, updateLoading } = useContext(UserContext);
+  updateLoading(false);
+
   const createdAt =
     typeof post?.createdAt === "number"
       ? new Date(post.createdAt) // if the timestamp is a numbe (in millis) we use new Date()

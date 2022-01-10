@@ -6,10 +6,9 @@ import toast from "react-hot-toast";
 
 import Loader from "@/util/Loader";
 
-export default function ImageUploader() {
+export default function ImageUploader({ downloadURL, setDownloadURL }) {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [downloadURL, setDownloadURL] = useState(null);
 
   const copyText = (event) => {
     event.preventDefault();
@@ -35,7 +34,6 @@ export default function ImageUploader() {
 
     // Monitor upload progress
     task.on(STATE_CHANGED, (snapshot) => {
-      console.log(snapshot);
       const percent = (
         (snapshot.bytesTransferred / snapshot.totalBytes) *
         100
@@ -45,7 +43,7 @@ export default function ImageUploader() {
       if (snapshot.bytesTransferred === snapshot.totalBytes) return;
 
       // Get downloadURL AFTER task resolves (not a native Promise - can't use async await)
-      return toast.promise(
+      toast.promise(
         task
           .then((d) => ref.getDownloadURL())
           .then((url) => {
@@ -63,16 +61,8 @@ export default function ImageUploader() {
 
   return (
     <div className="flex items-center">
-      {/* <div className="flex flex-col items-center justify-center">
-        <Loader show={uploading} mini={true} />
-        {uploading && (
-          <h3 className="text-gray-700 font-medium">{progress}%</h3>
-        )}
-      </div> */}
-
       {!uploading ? (
         <>
-          {/* Wrapping input in the label element makes it easier to style */}
           <label className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium cursor-pointer mr-4">
             Upload Image
             <input
@@ -86,14 +76,13 @@ export default function ImageUploader() {
       ) : (
         <div className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium cursor-pointer mr-4 relative">
           <Loader show={uploading} mini={true} classes="absolute" />
-          <h3 className="absolute text-gray-700 font-medium left-16">
+          <span className="absolute text-gray-700 font-medium left-16">
             {progress}%
-          </h3>
+          </span>
           <span className="opacity-0">Upload Image</span>
         </div>
       )}
-
-      {downloadURL && (
+      {downloadURL ? (
         <Button
           classes="relative flex items-center hover:button-animation z-10"
           title="Copy image URL"
@@ -102,6 +91,10 @@ export default function ImageUploader() {
         >
           <CopyIcon classes="text-gray-700 h-6 w-6" />
         </Button>
+      ) : (
+        <p className="text-gray-700 font-light">
+          Upload an image and include the provided markdown in your post.
+        </p>
       )}
     </div>
   );

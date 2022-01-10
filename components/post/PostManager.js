@@ -4,9 +4,12 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { firestore, auth } from "lib/firebase";
 import PostForm from "@/post/PostForm";
 import Link from "next/link";
+import { useContext } from "react";
+import { UserContext } from "lib/context";
 
 export default function PostManager() {
   const [preview, setPreview] = useState(false);
+  const { loading, updateLoading } = useContext(UserContext);
   const router = useRouter();
   const { slug } = router.query;
 
@@ -25,8 +28,8 @@ export default function PostManager() {
           <h1 className="text-3xl font-medium text-gray-700 mb-16">
             {post.title}
           </h1>
-          <div className="flex flex-col sm:flex-row w-full md:w-3/4 lg:w-5/6 justify-center">
-            <section className="w-full sm:w-3/4">
+          <div className="flex flex-col sm:flex-row w-full md:w-3/4 lg:w-5/6 justify-center ">
+            <section className="w-full sm:w-3/4 px-6 py-4 border border-gray-300 rounded">
               <p className="text-gray-700 font-semibold mb-4">
                 Post Id:
                 <span className="font-normal"> {post.slug}</span>
@@ -51,7 +54,10 @@ export default function PostManager() {
                 </button>
                 <Link href={`/${post.username}/${post.slug}`} passHref>
                   <a>
-                    <button className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium">
+                    <button
+                      className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium"
+                      onClick={() => updateLoading(true)}
+                    >
                       Live view
                     </button>
                   </a>

@@ -19,9 +19,9 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <nav className="pt-2 flex justify-center relative z-10">
-      <ul className="w-5/6 px-6 py-2 border border-gray-200 shadow-sm rounded-3xl flex items-center justify-between">
-        <li>
+    <nav className="pt-2 flex justify-center relative z-10 mb-4">
+      <ul className="w-5/6 px-2 sm:px-6 my-0 py-2 border border-gray-200 shadow-sm rounded-3xl flex items-center justify-between">
+        <li className="list-none">
           <Link href="/">
             <a>
               <Button
@@ -35,7 +35,7 @@ export default function Navbar() {
         </li>
         {username && (
           <div className="flex space-x-2 items-center">
-            <li>
+            <li className="list-none">
               <Link href="/admin/create" passHref>
                 <a>
                   <Button
@@ -48,7 +48,7 @@ export default function Navbar() {
               </Link>
             </li>
 
-            <li>
+            <li className="list-none">
               <Link href="/admin" passHref>
                 <a>
                   <Button
@@ -61,7 +61,7 @@ export default function Navbar() {
               </Link>
             </li>
 
-            <li>
+            <li className="list-none">
               <Button
                 classes="relative flex items-center hover:button-animation z-10"
                 title="Logout"
@@ -76,7 +76,7 @@ export default function Navbar() {
         {user && username && (
           <Link href={`/${username}`} passHref>
             <a
-              className={`h-9 absolute right-5 top-3.5 flex items-center ${
+              className={`h-7 md:absolute right-2 md:right-5 top-4.5 flex items-center ${
                 !loading && "rounded-full shadow"
               }`}
             >

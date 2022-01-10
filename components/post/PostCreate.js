@@ -63,7 +63,7 @@ export default function PostCreate() {
           htmlFor="post-title"
           className="self-start text-gray-700 font-semibold"
         >
-          Post Title
+          Name your post:
         </label>
         <input
           type="text"
@@ -82,7 +82,7 @@ export default function PostCreate() {
           disabled={!isValid}
           className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium my-4"
         >
-          Create New Post
+          Create Post
         </button>
       </form>
     </>

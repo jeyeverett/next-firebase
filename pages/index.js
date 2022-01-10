@@ -36,7 +36,7 @@ export default function Home(props) {
   };
 
   return (
-    <main className="md:px-6 md:py-6 sm:px-12 sm:py-12 flex flex-col items-center">
+    <main className="md:px-6 md:py-6 flex flex-col items-center">
       <h1 className="text-center text-3xl font-medium text-gray-700 mb-8">
         Main Feed
       </h1>

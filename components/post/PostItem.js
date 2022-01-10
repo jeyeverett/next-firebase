@@ -12,21 +12,27 @@ export default function PostItem({ post, admin = false }) {
   return (
     <div className="px-8 md:px-6 py-6 border border-gray-300 shadow rounded-sm w-3/4 mx-auto text-gray-700 mb-4 flex flex-col md:flex-row justify-between">
       <div className="flex flex-col md:flex-row">
-        <figure className="flex justify-center md:block md:mr-6">
+        <figure className="flex flex-col justify-center items-center md:mr-6">
           {post.imageUrl ? (
             <Link href={`/${post.username}/${post.slug}`}>
               <a>
-                <Image
-                  src={post.imageUrl}
-                  alt={post.title}
-                  className="object-fit object-center"
-                />
+                <div className="w-32 relative">
+                  <Image
+                    src={post.imageUrl}
+                    alt={post.title}
+                    width="100%"
+                    height="100%"
+                    layout="responsive"
+                    objectFit="cover"
+                    className="border rounded"
+                  />
+                </div>
               </a>
             </Link>
           ) : (
             <Link href={`/${post.username}/${post.slug}`}>
               <a>
-                <QuestionIcon classes="h-20 w-20 text-gray-700" />
+                <QuestionIcon classes="h-32 w-32 text-gray-700" />
               </a>
             </Link>
           )}
@@ -39,9 +45,7 @@ export default function PostItem({ post, admin = false }) {
               </strong>
             </a>
           </Link>
-          <ReactMarkdown className="my-2">
-            {post?.content.replace("\n", " ").slice(0, 200)}
-          </ReactMarkdown>
+          <p className="my-2 break-all">{post?.content.slice(0, 200)}</p>
           <span>
             <Link href={`/${post.username}`}>
               <a className="text-sm text-gray-500 hover:text-gray-700 transition-all">
