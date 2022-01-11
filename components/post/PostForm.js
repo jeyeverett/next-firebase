@@ -68,7 +68,7 @@ export default function PostForm({ defaultValues, post, postRef, preview }) {
           placeholder="Write your post here!"
         />
 
-        <fieldset className="flex items-center justify-end">
+        <fieldset className="flex items-center justify-end mb-4">
           <label
             htmlFor="published"
             className="cursor-pointer select-none pr-2 text-gray-700 font-medium"

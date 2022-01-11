@@ -64,7 +64,7 @@ export default function ImageUploader({ downloadURL, setDownloadURL }) {
       {!uploading ? (
         <>
           <label className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium cursor-pointer mr-4">
-            Upload Image
+            <span className="text-center">Upload Image</span>
             <input
               type="file"
               onChange={uploadFile}

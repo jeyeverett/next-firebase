@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
-import PostImage from "./PostImage";
-import { HeartIcon, EditIcon, QuestionIcon } from "@/icons";
+import PostImage from "@/post/PostImage";
+import PostLink from "@/post/PostLink";
+import { HeartIcon, EditIcon } from "@/icons";
 
 import Button from "@/util/Button";
 
@@ -12,26 +12,26 @@ export default function PostItem({ post, admin = false }) {
   return (
     <div className="px-8 md:px-6 py-6 border border-gray-300 shadow rounded-sm w-3/4 mx-auto text-gray-700 mb-4 flex flex-col md:flex-row justify-between">
       <div className="flex flex-col md:flex-row">
-        <PostImage
-          imageUrl={post.imageUrl}
-          title={post.title}
-          postLink={`/${post.username}/${post.slug}`}
-        />
+        <PostLink
+          linkUrl={`/${post.username}/${post.slug}`}
+          classes="flex justify-center"
+        >
+          <PostImage imageUrl={post.imageUrl} title={post.title} />
+        </PostLink>
         <span className="flex flex-col mt-4 md:mt-0">
-          <Link href={`/${post.username}/${post.slug}`}>
-            <a>
-              <strong className="hover:text-gray-500 transition-all">
-                {post.title}
-              </strong>
-            </a>
-          </Link>
+          <PostLink linkUrl={`/${post.username}/${post.slug}`}>
+            <strong className="hover:text-gray-500 transition-all">
+              {post.title}
+            </strong>
+          </PostLink>
           <p className="my-2 break-all">{post?.content.slice(0, 200)}</p>
           <span>
-            <Link href={`/${post.username}`}>
-              <a className="text-sm text-gray-500 hover:text-gray-700 transition-all">
-                By @{post.username}
-              </a>
-            </Link>
+            <PostLink
+              linkUrl={`/${post.username}`}
+              classes="text-sm text-gray-500 hover:text-gray-700 transition-all"
+            >
+              By @{post.username}
+            </PostLink>
             <span className="text-sm text-gray-500">
               &nbsp;- {wordCount} words | {minutesToRead} min read
             </span>

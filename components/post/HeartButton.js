@@ -34,14 +34,14 @@ export default function HeartButton({ postRef }) {
 
   return heartDoc?.exists() ? (
     <button
-      className="px-4 py-2 border border-gray-500 bg-gray-500 shadow rounded hover:bg-white text-white hover:text-gray-700 transition-all mt-4"
+      className="px-4 py-2 border border-gray-500 bg-gray-500 shadow rounded hover:bg-white text-white hover:text-gray-700 transition-all"
       onClick={removeHeart}
     >
       Unheart
     </button>
   ) : (
     <button
-      className="px-4 py-2 border border-gray-500 bg-gray-500 shadow rounded hover:bg-white text-white hover:text-gray-700 transition-all mt-4"
+      className="px-4 py-2 border border-gray-500 bg-gray-500 shadow rounded hover:bg-white text-white hover:text-gray-700 transition-all"
       onClick={addHeart}
     >
       Heart
