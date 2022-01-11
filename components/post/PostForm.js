@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { UserContext } from "lib/context";
 import ImageUploader from "@/post/ImageUploader";
 import { serverTimestamp } from "lib/firebase";
@@ -11,7 +11,6 @@ import { CheckIcon } from "@/icons";
 export default function PostForm({ defaultValues, post, postRef, preview }) {
   const { updateLoading } = useContext(UserContext);
   const [downloadURL, setDownloadURL] = useState(null);
-  console.log(defaultValues);
 
   const {
     register,
@@ -62,9 +61,12 @@ export default function PostForm({ defaultValues, post, postRef, preview }) {
         <fieldset className="mt-4">
           <label
             htmlFor="text-area"
-            className="text-sm font-medium uppercase tracking-wider"
+            className="text-sm font-medium uppercase tracking-wider flex justify-between"
           >
             Main Content
+            <span className="lowercase font-light">
+              {watch("content")?.length} of 20000
+            </span>
           </label>
           <textarea
             {...register("content", {
@@ -81,9 +83,12 @@ export default function PostForm({ defaultValues, post, postRef, preview }) {
         <fieldset>
           <label
             htmlFor="summary"
-            className="text-sm font-medium uppercase tracking-wider"
+            className="text-sm font-medium uppercase tracking-wider flex justify-between"
           >
             Summary
+            <span className="lowercase font-light">
+              {watch("summary")?.length} of 250
+            </span>
           </label>
           <textarea
             {...register("summary", {
@@ -91,8 +96,9 @@ export default function PostForm({ defaultValues, post, postRef, preview }) {
               minLength: { value: 10, message: "summary is too short" },
               required: { value: true, message: "summary is required" },
             })}
+            defaultValue={post.summary}
             id="summary"
-            className="p-4 w-full border border-gray-100 bg-gray-100 rounded h-32 resize-none mt-2 mb-4"
+            className="p-4 w-full border border-gray-100 bg-gray-100 rounded h-28 resize-none mt-2 mb-4"
             placeholder="Write a brief summary here!"
           />
         </fieldset>

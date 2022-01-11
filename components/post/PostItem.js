@@ -28,7 +28,7 @@ export default function PostItem({ post, admin = false }) {
               {post.title}
             </strong>
           </PostLink>
-          <p className="my-2 break-all">{post?.content.slice(0, 200)}</p>
+          <p className="my-2 break-all">{post?.summary}</p>
           <span>
             <PostLink
               linkUrl={`/${post.username}`}
