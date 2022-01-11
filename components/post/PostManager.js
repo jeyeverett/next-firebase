@@ -22,7 +22,7 @@ export default function PostManager() {
     <main className="px-6 py-6 sm:px-12 sm:py-12 flex flex-col items-center w-full">
       {post && (
         <>
-          <h1 className="text-3xl font-medium text-gray-700 mb-16">
+          <h1 className="text-3xl font-medium text-gray-700 mb-8 md:mb-16">
             {post.title}
           </h1>
           <div className="flex flex-col sm:flex-row w-full xl:w-3/4 justify-center ">
@@ -39,8 +39,8 @@ export default function PostManager() {
               />
             </section>
 
-            <aside className="flex flex-col items-center justify-start p-4 border border-gray-300 rounded mt-4 sm:mt-0 sm:ml-4">
-              <h3 className="text-gray-700 font-semibold text-lg mb-4 ">
+            <aside className="flex flex-col items-center justify-start p-4 border border-gray-300 rounded mb-4 sm:mb-0 sm:ml-4 order-first sm:order-last">
+              <h3 className="text-gray-700 font-semibold text-lg mb-4">
                 Tools
               </h3>
               <div className="flex sm:flex-col items-center justify-center">

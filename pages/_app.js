@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
       <UserContext.Provider value={{ ...userData, loading, updateLoading }}>
         <Navbar />
         <Component {...pageProps} />
-        <Toaster />
+        <Toaster reverseOrder={true} />
       </UserContext.Provider>
     </>
   );

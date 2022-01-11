@@ -59,6 +59,7 @@ export default function UsernameForm() {
   // useCallback is required for debounce to work
   const checkUsername = useCallback(
     debounce(async (username) => {
+      console.log(username);
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();
@@ -66,21 +67,26 @@ export default function UsernameForm() {
         setLoading(false);
       }
     }, 500),
-    [username]
+    []
   );
 
-  const usernameMessage = useCallback(({ formValue, isValid }) => {
-    if (isValid) {
-      toast.success(`${formValue} is available!`);
-    } else if (formValue && !isValid) {
-      toast.error(`That username is taken!`);
-    }
-  }, []);
+  const usernameMessage = useCallback(
+    debounce(({ formValue, isValid }) => {
+      if (isValid) {
+        toast.success(`${formValue} is available!`);
+      } else if (formValue && !isValid) {
+        toast.error(`That username is taken!`);
+      }
+    }, 500),
+    []
+  );
 
   return (
     !username && (
       <section>
-        <h3>Choose Username</h3>
+        <h3 className="text-2xl text-gray-700 font-medium mb-8">
+          Choose Username
+        </h3>
         <form onSubmit={onSubmit}>
           <span className="flex items-center">
             <input
@@ -88,13 +94,20 @@ export default function UsernameForm() {
               placeholder="username"
               value={formValue}
               onChange={onChange}
-              className=""
+              className="border border-gray-300 rounded-sm shadow-sm py-1 px-2 text-gray-700"
             />
-            <Loader show={loading} mini={true} />
           </span>
 
-          <button type="submit" className="" disabled={!isValid}>
-            Choose
+          <button
+            type="submit"
+            disabled={!isValid}
+            className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium mx-auto mt-8"
+          >
+            {!loading ? (
+              <span>Choose</span>
+            ) : (
+              <Loader show={loading} mini={true} />
+            )}
           </button>
 
           {/* <h3 className="mt-4">--DEBUG--</h3>

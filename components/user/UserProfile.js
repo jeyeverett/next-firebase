@@ -12,13 +12,15 @@ export default function UserProfile({ user }) {
             height="100%"
             layout="responsive"
             objectFit="cover"
-            className="border rounded"
+            className="border rounded-full"
           />
         </div>
+        <h1 className="text-2xl text-gray-700 font-semibold">
+          {user.displayName}
+        </h1>
         <p>
           <i>@{user.username}</i>
         </p>
-        <h1>{user.displayName}</h1>
       </div>
     </main>
   );

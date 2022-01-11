@@ -4,8 +4,11 @@ import PostFeed from "@/post/PostFeed";
 
 export default function UserIndexPage({ user, posts }) {
   return (
-    <main>
+    <main className="py-4">
       <UserProfile user={user} />
+      <h2 className="text-xl md:text-2xl lg:text-3xl text-gray-700 font-medium text-center mb-4">
+        Posts
+      </h2>
       <PostFeed posts={posts} />
     </main>
   );

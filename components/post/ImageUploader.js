@@ -92,7 +92,7 @@ export default function ImageUploader({ downloadURL, setDownloadURL }) {
           <CopyIcon classes="text-gray-700 h-6 w-6" />
         </Button>
       ) : (
-        <p className="text-gray-700 font-light">
+        <p className="text-xs md:text-normal text-gray-700 font-light">
           Upload an image and include the provided markdown in your post.
         </p>
       )}
