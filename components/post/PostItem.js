@@ -16,7 +16,11 @@ export default function PostItem({ post, admin = false }) {
           linkUrl={`/${post.username}/${post.slug}`}
           classes="flex justify-center"
         >
-          <PostImage imageUrl={post.imageUrl} title={post.title} />
+          <PostImage
+            imageUrl={post.imageUrl}
+            title={post.title}
+            classes="mr-4"
+          />
         </PostLink>
         <span className="flex flex-col mt-4 md:mt-0">
           <PostLink linkUrl={`/${post.username}/${post.slug}`}>
@@ -49,7 +53,10 @@ export default function PostItem({ post, admin = false }) {
         {admin ? (
           <Link href={`/admin/${post.slug}`} passHref>
             <a className="flex justify-end">
-              <Button classes="relative flex justify-center hover:button-animation ">
+              <Button
+                classes="relative flex justify-center hover:button-animation"
+                title="Edit post"
+              >
                 <EditIcon classes="h-5 w-5 text-gray-700" />
               </Button>
             </a>

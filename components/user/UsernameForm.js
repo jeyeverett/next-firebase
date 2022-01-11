@@ -7,10 +7,10 @@ import debounce from "lodash.debounce";
 import toast from "react-hot-toast";
 
 export default function UsernameForm() {
-  const { user, username } = useContext(UserContext);
+  const { user, username, loading, updateLoading } = useContext(UserContext);
   const [formValue, setFormValue] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     checkUsername(formValue);
@@ -44,13 +44,13 @@ export default function UsernameForm() {
 
     if (value.length < 3) {
       setFormValue(value.toLowerCase());
-      setLoading(false);
+      updateLoading(false);
       setIsValid(false);
     }
 
     if (regEx.test(value.toLowerCase())) {
       setFormValue(value.toLowerCase());
-      setLoading(true);
+      updateLoading(true);
       setIsValid(true);
     }
   };
@@ -63,7 +63,7 @@ export default function UsernameForm() {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();
         setIsValid(!exists);
-        setLoading(false);
+        updateLoading(false);
       }
     }, 500),
     []
@@ -73,10 +73,12 @@ export default function UsernameForm() {
     debounce(({ formValue, isValid }) => {
       if (isValid) {
         toast.success(`${formValue} is available!`);
+        setError(null);
       } else if (formValue && !isValid) {
+        setError("That username is taken!");
         toast.error(`That username is taken!`);
       }
-    }, 500),
+    }, 700),
     []
   );
 
@@ -96,6 +98,12 @@ export default function UsernameForm() {
               className="border border-gray-300 rounded-sm shadow-sm py-1 px-2 text-gray-700"
             />
           </span>
+
+          {error && (
+            <p className="text-gray-700 text-sm mb-1 self-start font-medium mt-4">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"

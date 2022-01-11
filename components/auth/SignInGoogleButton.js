@@ -14,6 +14,7 @@ export default function SignInButton({ classes }) {
       await auth.signInWithPopup(googleAuthProvider);
     } catch (err) {
       console.log(err);
+      updateLoading(false);
     }
   };
 
@@ -28,7 +29,7 @@ export default function SignInButton({ classes }) {
       {loading ? (
         <Loader show={loading} mini={true} />
       ) : (
-        <Image src={"/google-logo.png"} alt="" height="30" width="30" />
+        <Image src={"/google-logo.png"} alt="" height="36" width="36" />
       )}
       <span className="text-center w-full text-gray-700 text-sm font-medium">
         Sign in with google

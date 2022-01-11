@@ -87,7 +87,7 @@ export default function Navbar() {
             ) : (
               <Button
                 classes="relative flex items-center hover:button-animation z-10"
-                title="Add post"
+                title="User profile"
               >
                 <AccountIcon classes="h-7 w-7 text-gray-500" />
               </Button>

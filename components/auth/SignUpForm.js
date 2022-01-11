@@ -1,11 +1,20 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "lib/context";
+import toast from "react-hot-toast";
+
 import Loader from "@/util/Loader";
 
 export default function SignUpForm() {
   const { updateLoading } = useContext(UserContext);
+  const [error, setError] = useState(null);
+  const [signIn, setSignIn] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -15,18 +24,29 @@ export default function SignUpForm() {
     mode: "onChange",
   });
 
-  console.log(errors.password);
-
   const signUpWithEmail = async ({ email, password }) => {
     const auth = getAuth();
 
     try {
       updateLoading(true);
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      if (signIn) {
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+      }
       reset({ email, password });
     } catch (err) {
-      console.log(err);
+      if (err.code === "auth/email-already-in-use") {
+        setError("That email is already in use.");
+      }
+      if (
+        err.code === "auth/wrong-password" ||
+        err.code === "auth/user-not-found"
+      ) {
+        toast.error("Wrong email or password.");
+      }
+
+      updateLoading(false);
     }
   };
 
@@ -91,6 +111,12 @@ export default function SignUpForm() {
         />
       </fieldset>
 
+      {error && (
+        <p className="text-gray-700 text-sm mb-1 self-start font-medium">
+          {error}
+        </p>
+      )}
+
       {errors.email && (
         <p className="text-gray-700 text-sm mb-1 self-start font-medium">
           {errors.email.message}
@@ -116,14 +142,24 @@ export default function SignUpForm() {
           </p>
         )
       ) : null}
+      <div className="flex">
+        <button
+          type="submit"
+          disabled={!isDirty || !isValid}
+          className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium mx-auto mt-4 mr-4"
+          onClick={() => setSignIn(true)}
+        >
+          Sign In
+        </button>
 
-      <button
-        type="submit"
-        disabled={!isDirty || !isValid}
-        className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium mx-auto mt-4"
-      >
-        Sign In / Register
-      </button>
+        <button
+          type="submit"
+          disabled={!isDirty || !isValid}
+          className="px-4 py-2 border border-gray-300 rounded-sm shadow-sm hover:bg-gray-300 transition-all flex items-center text-gray-700 text-sm font-medium mx-auto mt-4"
+        >
+          Register
+        </button>
+      </div>
     </form>
   );
 }

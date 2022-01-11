@@ -6,8 +6,8 @@ import PostLink from "@/post/PostLink";
 export default function HeartComponent({ post, postRef }) {
   return (
     <aside className="flex items-center">
-      <span className="flex items-center text-gray-500">
-        {post.heartCount || 0} <HeartIcon classes="text-red-400 h-6 w-6 mx-2" />
+      <span className="flex items-center text-gray-600 text-lg pr-4">
+        {post.heartCount || 0}
       </span>
 
       <AuthCheck
