@@ -22,7 +22,7 @@ export default function PostManager() {
   const [post] = useDocumentData(postRef); //use useDocumentDataOnce if you don't need realtime updates
 
   return (
-    <main className="px-6 py-6 sm:px-12 sm:py-12 flex flex-col items-center w-full">
+    <main className="p-0 xs:px-6 xs:py-6 sm:px-12 sm:py-12 flex flex-col items-center w-full">
       {post && (
         <>
           <h1 className="text-3xl font-medium text-gray-700 mb-16">
@@ -35,6 +35,7 @@ export default function PostManager() {
                 <span className="font-normal"> {post.slug}</span>
               </p>
               <PostForm
+                post={post}
                 postRef={postRef}
                 defaultValues={post}
                 preview={preview}

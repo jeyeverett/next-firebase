@@ -4,11 +4,12 @@ import ImageUploader from "@/post/ImageUploader";
 import { serverTimestamp } from "lib/firebase";
 import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
+import styles from "styles/markdown.module.css";
 import toast from "react-hot-toast";
 import { CheckIcon } from "@/icons";
 
-export default function PostForm({ defaultValues, postRef, preview }) {
-  const { loading, updateLoading } = useContext(UserContext);
+export default function PostForm({ defaultValues, post, postRef, preview }) {
+  const { updateLoading } = useContext(UserContext);
   const [downloadURL, setDownloadURL] = useState(null);
 
   const {
@@ -29,7 +30,7 @@ export default function PostForm({ defaultValues, postRef, preview }) {
         content,
         published,
         updatedAt: serverTimestamp(),
-        imageUrl: downloadURL ? downloadURL : null,
+        imageUrl: downloadURL ? downloadURL : post.imageUrl,
       });
       reset({ content, published });
       updateLoading(false);
@@ -44,7 +45,9 @@ export default function PostForm({ defaultValues, postRef, preview }) {
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
         <div className="p-4 w-full min-h-64">
-          <ReactMarkdown>{watch("content")}</ReactMarkdown>
+          <ReactMarkdown className={styles.markdown}>
+            {watch("content")}
+          </ReactMarkdown>
         </div>
       )}
 

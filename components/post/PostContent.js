@@ -1,11 +1,11 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import style from "styles/markdown.module.css";
+import styles from "styles/markdown.module.css";
 import { useContext } from "react";
 import { UserContext } from "lib/context";
 
 export default function PostContent({ post }) {
-  const { loading, updateLoading } = useContext(UserContext);
+  const { updateLoading } = useContext(UserContext);
   updateLoading(false);
 
   const createdAt =
@@ -14,19 +14,20 @@ export default function PostContent({ post }) {
       : post.createdAt.toDate(); // if the timestamp is in firestore format we use toDate()
 
   return (
-    <div>
-      <h1 className="text-center text-3xl font-medium text-gray-700 mb-8">
-        {post?.title}
-      </h1>
-      <span className="text-sm">
+    <article className="w-1/2 mx-auto">
+      <h1 className="text-3xl font-medium text-gray-700 mt-12">{post.title}</h1>
+
+      <p className="text-sm font-light mb-8 italic">
         Written by &nbsp;
         <Link href={`/${post.username}`}>
           <a>@{post.username}</a>
         </Link>
-        &nbsp; on {createdAt.toISOString()}
-      </span>
+        &nbsp; on {createdAt.toISOString().slice(0, 10)}
+      </p>
 
-      <ReactMarkdown className={style.markdown}>{post?.content}</ReactMarkdown>
-    </div>
+      <ReactMarkdown className={styles.markdown + " mt-8"}>
+        {post.content}
+      </ReactMarkdown>
+    </article>
   );
 }

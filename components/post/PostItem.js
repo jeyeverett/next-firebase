@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import PostImage from "./PostImage";
 import { HeartIcon, EditIcon, QuestionIcon } from "@/icons";
-import ReactMarkdown from "react-markdown";
 
 import Button from "@/util/Button";
 
@@ -12,31 +12,11 @@ export default function PostItem({ post, admin = false }) {
   return (
     <div className="px-8 md:px-6 py-6 border border-gray-300 shadow rounded-sm w-3/4 mx-auto text-gray-700 mb-4 flex flex-col md:flex-row justify-between">
       <div className="flex flex-col md:flex-row">
-        <figure className="flex flex-col justify-center items-center md:mr-6">
-          {post.imageUrl ? (
-            <Link href={`/${post.username}/${post.slug}`}>
-              <a>
-                <div className="w-32 relative">
-                  <Image
-                    src={post.imageUrl}
-                    alt={post.title}
-                    width="100%"
-                    height="100%"
-                    layout="responsive"
-                    objectFit="cover"
-                    className="border rounded"
-                  />
-                </div>
-              </a>
-            </Link>
-          ) : (
-            <Link href={`/${post.username}/${post.slug}`}>
-              <a>
-                <QuestionIcon classes="h-32 w-32 text-gray-700" />
-              </a>
-            </Link>
-          )}
-        </figure>
+        <PostImage
+          imageUrl={post.imageUrl}
+          title={post.title}
+          postLink={`/${post.username}/${post.slug}`}
+        />
         <span className="flex flex-col mt-4 md:mt-0">
           <Link href={`/${post.username}/${post.slug}`}>
             <a>
@@ -60,8 +40,10 @@ export default function PostItem({ post, admin = false }) {
       </div>
 
       <footer
-        className={`mt-4 md:mt-0 flex flex-col ${
-          admin ? "justify-between" : "justify-end"
+        className={`mt-4 md:mt-0 flex ${
+          admin
+            ? "flex-row md:flex-col justify-between"
+            : "flex-col justify-end"
         }`}
       >
         {admin ? (
@@ -73,7 +55,6 @@ export default function PostItem({ post, admin = false }) {
             </a>
           </Link>
         ) : null}
-
         <span className="flex items-center justify-end text-gray-500">
           {post.heartCount}
           <HeartIcon classes="text-red-400 h-6 w-6 ml-2" />
