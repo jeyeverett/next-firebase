@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { QuestionIcon } from "@/icons";
+import { QuestionIcon, AccountIcon } from "@/icons";
 
-export default function PostImage({ imageUrl, title, classes }) {
+export default function PostImage({ imageUrl, title, classes, userImage }) {
   return (
     <figure className={classes + " flex flex-col justify-center items-center"}>
       {imageUrl ? (
@@ -16,6 +16,8 @@ export default function PostImage({ imageUrl, title, classes }) {
             className="border rounded"
           />
         </div>
+      ) : userImage ? (
+        <AccountIcon classes="h-32 w-32 text-gray-700" />
       ) : (
         <QuestionIcon classes="h-32 w-32 text-gray-700" />
       )}

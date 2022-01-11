@@ -103,7 +103,11 @@ export default function Navbar() {
                   classes="relative flex items-center hover:button-animation z-10"
                   title="Account"
                 >
-                  <AccountIcon classes="h-7 w-7 text-gray-500" />
+                  {loading ? (
+                    <Loader show={loading} mini={true} />
+                  ) : (
+                    <AccountIcon classes="h-7 w-7 text-gray-500" />
+                  )}
                 </Button>
               </PostLink>
             </li>

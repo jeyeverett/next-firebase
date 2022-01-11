@@ -19,7 +19,7 @@ export default function PostItem({ post, admin = false }) {
           <PostImage
             imageUrl={post.imageUrl}
             title={post.title}
-            classes="mr-4"
+            classes="mr-0 sm:mr-4"
           />
         </PostLink>
         <span className="flex flex-col mt-4 md:mt-0">
@@ -44,7 +44,7 @@ export default function PostItem({ post, admin = false }) {
       </div>
 
       <footer
-        className={`mt-4 md:mt-0 flex ${
+        className={`mt-4 md:mt-0 flex items-center ${
           admin
             ? "flex-row md:flex-col justify-between"
             : "flex-col justify-end"

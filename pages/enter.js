@@ -22,7 +22,7 @@ export default function EnterPage() {
           <div className="w-56 flex flex-col items-center">
             <PostLink
               linkUrl="/"
-              classes="mb-4 text-xl font-medium text-gray-700"
+              classes="mb-8 text-xl font-medium text-gray-700"
             >
               Check out recent posts
             </PostLink>

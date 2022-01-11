@@ -8,8 +8,6 @@ import { useForm } from "react-hook-form";
 import { UserContext } from "lib/context";
 import toast from "react-hot-toast";
 
-import Loader from "@/util/Loader";
-
 export default function SignUpForm() {
   const { updateLoading } = useContext(UserContext);
   const [error, setError] = useState(null);

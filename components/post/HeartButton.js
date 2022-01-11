@@ -35,9 +35,9 @@ export default function HeartButton({ postRef }) {
 
   return heartDoc?.exists() ? (
     <button
-      className="px-4 py-2 border border-gray-400 bg-gray-400 shadow rounded hover:bg-white text-white hover:text-gray-700 transition-all"
+      className="px-4 py-2 border border-gray-400 shadow rounded hover:bg-white text-white hover:bg-gray-400 transition-all"
       onClick={removeHeart}
-      title="Heart post"
+      title="Unheart post"
     >
       <HeartIcon classes="h-5 w-5 text-red-500" />
     </button>

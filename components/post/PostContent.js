@@ -16,7 +16,7 @@ export default function PostContent({ post, postRef }) {
         <HeartComponent post={post} postRef={postRef} />
       </div>
 
-      <p className="text-sm font-light mb-8 italic">
+      <p className="text-sm font-light mt-4 sm:mt-2 mb-8 italic">
         Written by &nbsp;
         <Link href={`/${post.username}`}>
           <a>@{post.username}</a>
