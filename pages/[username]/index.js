@@ -9,7 +9,13 @@ export default function UserIndexPage({ user, posts }) {
       <h2 className="text-xl md:text-2xl lg:text-3xl text-gray-700 font-medium text-center mb-4">
         Posts
       </h2>
-      <PostFeed posts={posts} />
+      {posts.length ? (
+        <PostFeed posts={posts} />
+      ) : (
+        <p className="text-gray-700 text-center text-lg">
+          This user has no published posts
+        </p>
+      )}
     </main>
   );
 }

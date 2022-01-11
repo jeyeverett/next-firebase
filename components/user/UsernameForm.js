@@ -59,7 +59,6 @@ export default function UsernameForm() {
   // useCallback is required for debounce to work
   const checkUsername = useCallback(
     debounce(async (username) => {
-      console.log(username);
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();

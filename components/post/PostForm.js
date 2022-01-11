@@ -30,7 +30,11 @@ export default function PostForm({ defaultValues, post, postRef, preview }) {
         content,
         published,
         updatedAt: serverTimestamp(),
-        imageUrl: downloadURL ? downloadURL : post.imageUrl,
+        imageUrl: downloadURL
+          ? downloadURL
+          : post.imageUrl
+          ? post.imageUrl
+          : null,
       });
       reset({ content, published });
       updateLoading(false);

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "lib/context";
+import PostLink from "@/post/PostLink";
 import dynamic from "next/dynamic";
 const UsernameForm = dynamic(() => import("@/user/UsernameForm"));
 const SignInGoogleButton = dynamic(() => import("@/auth/SignInGoogleButton"));
@@ -17,7 +18,17 @@ export default function EnterPage() {
           <SignInGoogleButton classes="mt-4" />
         </>
       ) : username ? (
-        <SignOutButton />
+        <>
+          <div className="w-56 flex flex-col items-center">
+            <PostLink
+              linkUrl="/"
+              classes="mb-4 text-xl font-medium text-gray-700"
+            >
+              Check out recent posts
+            </PostLink>
+            <SignOutButton />
+          </div>
+        </>
       ) : (
         <UsernameForm />
       )}

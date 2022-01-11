@@ -3,7 +3,7 @@ import { QuestionIcon } from "@/icons";
 
 export default function PostImage({ imageUrl, title, classes }) {
   return (
-    <figure className="flex flex-col justify-center items-center md:mr-6">
+    <figure className="flex flex-col justify-center items-center">
       {imageUrl ? (
         <div className="w-32 relative">
           <Image
