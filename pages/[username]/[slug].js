@@ -14,7 +14,7 @@ export default function Post({ path, post: postData }) {
 
   return (
     <main>
-      <section>
+      <section className="pb-10">
         <MetaTags post={post} />
         <PostContent post={post} postRef={postRef} />
       </section>

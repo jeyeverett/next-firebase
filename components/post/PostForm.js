@@ -1,5 +1,4 @@
-import { useContext, useState, useRef } from "react";
-import { UserContext } from "lib/context";
+import { useState } from "react";
 import ImageUploader from "@/post/ImageUploader";
 import { serverTimestamp } from "lib/firebase";
 import { useForm } from "react-hook-form";
@@ -8,8 +7,13 @@ import styles from "styles/markdown.module.css";
 import toast from "react-hot-toast";
 import { CheckIcon } from "@/icons";
 
-export default function PostForm({ defaultValues, post, postRef, preview }) {
-  const { updateLoading } = useContext(UserContext);
+export default function PostForm({
+  defaultValues,
+  post,
+  postRef,
+  preview,
+  updateLoading,
+}) {
   const [downloadURL, setDownloadURL] = useState(null);
 
   const {

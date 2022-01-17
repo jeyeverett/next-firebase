@@ -34,6 +34,7 @@ export default function PostCreate() {
       username,
       published: false,
       content: "# hello world!",
+      summary: "Write a brief summary here...",
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       heartCount: 0,

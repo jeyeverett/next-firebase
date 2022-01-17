@@ -12,8 +12,9 @@ export default function AuthCheck({ children, fallback }) {
   return username
     ? children || <Loader show={true} /> // if we don't return null and children is undefined we will get an error
     : fallback || (
-        <Link href="/enter" className="flex justify-center">
-          You must be signed in to continue.
-        </Link>
+        <div className="flex flex-col items-center justify-center w-full">
+          <Loader show={true} />
+          <Link href="/enter">You must be signed in to continue.</Link>
+        </div>
       );
 }
