@@ -4,7 +4,7 @@ export default function Custom404() {
   return (
     <main className="px-6 py-6 sm:px-12 sm:py-12 flex flex-col items-center">
       <h1 className="text-2xl font-medium text-gray-700">
-        404 - Sorry, we don't know where that page is...
+        404 - Sorry, we don&apos;t know where that page is...
       </h1>
 
       <Link href="/" passHref>
