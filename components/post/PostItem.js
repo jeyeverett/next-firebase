@@ -22,13 +22,13 @@ export default function PostItem({ post, admin = false }) {
             classes="mr-0 sm:mr-4"
           />
         </PostLink>
-        <span className="flex flex-col mt-4 md:mt-0">
+        <span className="flex flex-col justify-between mt-4 md:mt-0">
           <PostLink linkUrl={`/${post.username}/${post.slug}`}>
             <strong className="hover:text-gray-500 transition-all">
               {post.title}
             </strong>
           </PostLink>
-          <p className="my-2 break-all">{post?.summary}</p>
+          <p className="my-2">{post?.summary}</p>
           <span>
             <PostLink
               linkUrl={`/${post.username}`}
