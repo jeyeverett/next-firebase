@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "lib/context";
 import toast from "react-hot-toast";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"; // use this to access url params
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { firestore, auth } from "lib/firebase";
 import PostForm from "@/post/PostForm";
@@ -22,10 +22,6 @@ export default function PostManager() {
     .doc(slug);
 
   const heartRef = postRef.collection("hearts").doc(auth.currentUser.uid);
-
-  const confirmDelete = () => {
-    setDeletable(true);
-  };
 
   const deletePost = async () => {
     updateLoading(true);
@@ -92,17 +88,27 @@ export default function PostManager() {
                   {isDeletable && (
                     <button
                       onClick={() => deletePost()}
-                      className="px-4 py-2 border border-gray-700 bg-gray-700 text-white rounded-sm shadow-sm hover:bg-gray-500 transition-all flex items-center text-sm font-medium mr-2 sm:mr-0 sm:mb-2 sm:w-full flex justify-center sm:justify-self-end"
+                      className="px-4 py-2 border border-red-600 bg-red-600 text-white rounded-sm shadow-sm hover:bg-red-300 transition-all flex items-center text-sm font-medium sm:mb-2 sm:w-full flex justify-center sm:justify-self-end"
                     >
                       Confirm
                     </button>
                   )}
-                  <button
-                    onClick={() => confirmDelete()}
-                    className="px-4 py-2 border border-red-600 bg-red-600 text-white rounded-sm shadow-sm hover:bg-red-300 transition-all flex items-center text-sm font-medium sm:mb-2 sm:w-full flex justify-center sm:justify-self-end"
-                  >
-                    Delete
-                  </button>
+
+                  {isDeletable ? (
+                    <button
+                      onClick={() => setDeletable(false)}
+                      className="px-4 py-2 border border-gray-700 bg-gray-700 text-white rounded-sm shadow-sm hover:bg-gray-500 transition-all flex items-center text-sm font-medium mr-2 sm:mr-0 sm:mb-2 sm:w-full flex justify-center sm:justify-self-end"
+                    >
+                      Cancel
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setDeletable(true)}
+                      className="px-4 py-2 border border-red-600 bg-red-600 text-white rounded-sm shadow-sm hover:bg-red-300 transition-all flex items-center text-sm font-medium sm:mb-2 sm:w-full flex justify-center sm:justify-self-end"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </span>
               </div>
             </aside>

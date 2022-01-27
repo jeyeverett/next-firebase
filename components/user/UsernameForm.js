@@ -12,6 +12,11 @@ export default function UsernameForm() {
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState(null);
 
+  // disable loading on initial load
+  useEffect(() => {
+    updateLoading(false);
+  }, []);
+
   useEffect(() => {
     checkUsername(formValue);
     usernameMessage({ formValue, isValid });
@@ -74,6 +79,9 @@ export default function UsernameForm() {
       if (isValid) {
         toast.success(`${formValue} is available!`);
         setError(null);
+      } else if (formValue && formValue.length <= 3) {
+        setError("Need at least 3 characters.");
+        toast.error(`Please enter a longer username.`);
       } else if (formValue && !isValid) {
         setError("That username is taken!");
         toast.error(`That username is taken!`);
@@ -100,7 +108,7 @@ export default function UsernameForm() {
           </span>
 
           {error && (
-            <p className="text-gray-700 text-sm mb-1 self-start font-medium mt-4">
+            <p className="text-gray-700 text-sm mb-1 self-start font-medium mt-4 text-center">
               {error}
             </p>
           )}
@@ -113,7 +121,14 @@ export default function UsernameForm() {
             {!loading ? (
               <span>Choose</span>
             ) : (
-              <Loader show={loading} mini={true} />
+              <span className="relative">
+                <span className="text-transparent">Choose</span>
+                <Loader
+                  show={loading}
+                  mini={true}
+                  classes="absolute left-2 -top-1"
+                />
+              </span>
             )}
           </button>
 

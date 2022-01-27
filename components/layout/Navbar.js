@@ -31,6 +31,8 @@ export default function Navbar() {
             </Button>
           </PostLink>
         </li>
+
+        {/* if a user is fully registered (and has a username) show the menu */}
         {username && (
           <div className="flex space-x-2 items-center">
             <li className="list-none">
@@ -67,18 +69,20 @@ export default function Navbar() {
           </div>
         )}
 
-        {user && username && (
+        {/* display user avatar */}
+        {username && (
           <PostLink
             linkUrl={`/${username}`}
             classes={`h-7 md:absolute right-2 md:right-5 top-4.5 flex items-center ${
               !loading && "rounded-full shadow"
             }`}
           >
+            {/* if loading, show the loader, if not and the user has an image use that, otherwise use the default */}
             {loading ? (
               <Loader show={loading} mini={true} />
-            ) : user.photoURL ? (
+            ) : user?.photoURL ? (
               <Image
-                src={user.photoURL}
+                src={user?.photoURL}
                 width="36"
                 height="36"
                 alt={username}
@@ -95,6 +99,7 @@ export default function Navbar() {
           </PostLink>
         )}
 
+        {/* if there's no username, user isn't signed on or hasn't registered a username */}
         {!username && (
           <>
             <li>

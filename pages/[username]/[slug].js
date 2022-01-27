@@ -3,9 +3,10 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import PostContent from "@/post/PostContent";
 import MetaTags from "@/post/MetaTags";
 
+// Keep in mind that static routes take priority over dynamic routes (in case of name conflicts)
 export default function Post({ path, post: postData }) {
   //this firebase hook lets us set up a real time datafeed to firestore
-  //the page will be first server generated based on the data from getStaticProps
+  //the page will be first server generated (ISR) based on the data from getStaticProps
   //it will then hydrate its real time reactivity on the client
   //this means we will read from firestore on the server and then again on the client
   const postRef = firestore.doc(path);

@@ -16,7 +16,11 @@ export default function PostList() {
       <h1 className="text-center text-3xl font-medium text-gray-700 mb-8">
         Manage Posts
       </h1>
-      <PostFeed posts={posts} admin />
+      {posts?.length > 0 ? (
+        <PostFeed posts={posts} admin />
+      ) : (
+        <p>You need to create a post first!</p>
+      )}
     </>
   );
 }

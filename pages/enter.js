@@ -7,6 +7,8 @@ const SignInGoogleButton = dynamic(() => import("@/auth/SignInGoogleButton"));
 const SignOutButton = dynamic(() => import("@/auth/SignOutButton"));
 const SignUpForm = dynamic(() => import("@/auth/SignUpForm"));
 
+// Users need to choose a username after registering
+// We use the username to route to user's profiles and nest their posts under the username in firestore
 export default function EnterPage() {
   const { user, username } = useContext(UserContext);
 

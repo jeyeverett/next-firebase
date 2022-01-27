@@ -2,7 +2,6 @@ import Loader from "@/util/Loader";
 import PostFeed from "@/post/PostFeed";
 import { useState } from "react";
 import { firestore, postToJSON, fromMillis } from "lib/firebase";
-import Link from "next/link";
 
 export default function Home(props) {
   const [posts, setPosts] = useState(props.posts);
@@ -12,7 +11,8 @@ export default function Home(props) {
   const getMorePosts = async () => {
     setLoading(true);
     const last = posts[posts.length - 1];
-    // we need the timestamp for pagination and it needs to be in firestore format (not number)
+
+    // we use the timestamp for pagination and it needs to be in firestore format (not number)
     const cursor =
       typeof last.createdAt === "number"
         ? fromMillis(last.createdAt)
@@ -22,7 +22,7 @@ export default function Home(props) {
       .collectionGroup("posts")
       .where("published", "==", true)
       .orderBy("createdAt", "desc")
-      .startAfter(cursor)
+      .startAfter(cursor) // start after the most recently loaded post's timestamp
       .limit(LIMIT);
 
     const newPosts = (await query.get()).docs.map((doc) => doc.data());
@@ -30,6 +30,7 @@ export default function Home(props) {
     setPosts(posts.concat(newPosts));
     setLoading(false);
 
+    // if the newPosts array has less items than LIMIT then we know we've reached the end
     if (newPosts.length < LIMIT) {
       setPostsEnd(true);
     }
